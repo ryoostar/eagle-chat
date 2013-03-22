@@ -1,0 +1,20 @@
+extends layout
+
+block content
+
+ - if(!isSuccess)
+  script
+   alert('방에 입장할 수 없습니다.');
+   location.href = '/enter';
+ - else 
+  h3 방제 :
+   span#roomName= roomName
+  #chatWindow(style='width:400px; height:400px; overflow:auto; border:1px solid #000; float:left; margin-right:10px')
+
+  div(style='width:100px; height:400px; overflow:auto; border:1px solid #000;')
+   p 참가자
+   ul#apptendants
+  form#form_room
+   span#myName #{nickName}
+   input(type='text', style='width:300px;')#message
+   input(type='submit', value='보내기')#btn_send
