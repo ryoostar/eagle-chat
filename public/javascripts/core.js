@@ -42,11 +42,11 @@
 
 	};
 	window.Chat = {
-		showMessage : function(msg) {
+		showMessage : function(data) {
 			var chatWindow = $('#chatWindow');
-			chatWindow.append($('<p>').text(msg));
+			chatWindow.append($('<p>').text(data.msg));
 			chatWindow.scrollTop(chatWindow.height());
-			Noti.plain_text_notification("", "Eagle Chat", msg).show();
+			Noti.plain_text_notification("", "Eagle Chat", data.msg).show();
 		}
 
 	};
@@ -73,7 +73,8 @@ $(document).ready(function() {
 
 	room.on('joined', function(data) {
 		if (data.isSuccess) {
-			Chat.showMessage(data.nickName + ' 님이 입장하셨습니다.');
+			data.msg = data.nickName + ' 님이 입장하셨습니다.';
+			Chat.showMessage(data);
 		}
 	});
 
@@ -82,7 +83,7 @@ $(document).ready(function() {
 		var messageBox = $('#message');
 		var msg = messageBox.val();
 		if ($.trim(msg) !== '') {
-			Chat.showMessage(myName + ' : ' + msg);
+			Chat.showMessage({nickName : myName, msg : msg});
 			room.json.send({
 				nickName : myName,
 				msg : msg
@@ -92,6 +93,6 @@ $(document).ready(function() {
 	});
 
 	room.on('message', function(data) {
-		Chat.showMessage(data.nickName + ' : ' + data.msg);
+		Chat.showMessage(data);
 	});
 });
