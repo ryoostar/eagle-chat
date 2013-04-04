@@ -3,9 +3,10 @@
  */
 var express = require('express'), 
 	app = express(), 
-	http = require('http'), 
+	http = require('http'),
+	routes = require('./routes'),
 	Chat = require('./chat'), 
-	server = http.createServer(app), 
+	server = http.createServer(app),
 	path = require('path');
 
 //test
@@ -30,6 +31,8 @@ app.configure(function() {
 app.configure('development', function() {
 	app.use(express.errorHandler());
 });
+
+app.get('/', routes.index);
 
 
 /**
