@@ -1,4 +1,9 @@
 - if(isSuccess)
+ script(type='text/javascript')
+  function enterRoom(roomName){
+   location.href='/join/'+roomName;
+  };
+ 
  h2 채팅방 목록
  p #{nickName}님 환영합니다.
  p 원하는 채팅방이 없으면 채팅방을 만드세요.
@@ -9,12 +14,12 @@
  ul 
   each room in roomList
    li= room
-    input(type='button', value='입장', onclick='location.href=\'/join/' + room + '\'');
+    input(type='button', value='입장', onclick='enterRoom(\'' + room + '\')');
 - else
- - if(nickName === '')
+ - if(nickName == '')
   script(type='text/javascript')
-   alert('잘못된 닉네임입니다.')
-   history.go(-1);
+   alert('닉네임을 입력하세요.')
+   history.go(-1)
  - else
   scritp(type='text/javascript')
    alert('사용중인 닉네임입니다.')

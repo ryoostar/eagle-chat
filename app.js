@@ -39,7 +39,7 @@ app.get('/', routes.index);
  * enter action 에 대한 처리
  */
 app.post('/enter', function(req, res) {
-	console.log(req.body);
+	console.log("enter=================================="+req.body);
 	var isSuccess = false, nickName = req.body.nickName;
 	if (nickName && nickName.trim() !== '') {
 		if (!Chat.hasUser(nickName)) {
@@ -78,6 +78,8 @@ app.post('/makeRoom', function(req, res) {
 		if (!Chat.hasRoom(roomName)) {
 			Chat.addRoom(roomName);
 			isSuccess = true;
+			
+			console.log("방만들기 성공 : "+roomName+isSuccess);
 		}
 	}
 
@@ -94,11 +96,13 @@ app.get('/join/:id', function(req, res) {
 	}
 
 	console.log('room.jade로 전송 -  roomName : ' + roomName + 'nickName :' + req.session.nickName);
+	console.log(isSuccess);
 
 	res.render('room', {
 		isSuccess : isSuccess,
 		roomName : roomName,
-		nickName : req.session.nickName
+		nickName : req.session.nickName,
+		users : Chat.users
 	});
 
 });

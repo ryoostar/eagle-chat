@@ -7,14 +7,36 @@ block content
    alert('방에 입장할 수 없습니다.');
    location.href = '/enter';
  - else 
-  h3 방제 :
-   span#roomName= roomName
-  #chatWindow(style='width:400px; height:400px; overflow:auto; border:1px solid #000; float:left; margin-right:10px')
-
-  div(style='width:100px; height:400px; overflow:auto; border:1px solid #000;')
-   p 참가자
-   ul#apptendants
-  form#form_room
-   span#myName #{nickName}
-   input(type='text', style='width:300px;')#message
-   input(type='submit', value='보내기')#btn_send
+   h3 Room :
+    span eglegle
+   div#page-container.wrapper.wrapper-home.white
+    div.dashboard
+     div.module.mini-profile
+      div.flex-module.profile-summary.js-profile-summary
+       a.account-summary.account-summary-small.js-nav
+        div.content
+         div.account-group.js-mini.current-user
+          img.avatar.size32(src='../images/lava.jpg')
+          b.fullname=nickName
+          small.metadata 여기엔 뭘 넣지
+      div.home-tweet-box.tweet-box.component.tweet-user
+       form#form_room.tweet-form
+        input#roomName(type='hidden',value=roomName)
+        input#myName(type='hidden',value=nickName)
+        div.tweet-content        
+         div#message.tweet-box.rich-editor(contenteditable='true', spellcheck='true', role='textbox', aria-multiline='true', dir='ltr')
+         div.toolbar.js-toolbar
+          div.tweet-button
+           button#btn_send.btn.primary-btn.tweet-action(type='button') Egle
+     div.module.wtf-module.js-wtf-module.has-content
+      div.flex-module
+       div.flex-module-header
+        h3 참가자
+       div#attendants.js-recommended-followers.dashboard-user-recommendations.flex-module-inner
+    div#timeline.content-main.js-timeline-from-cache    
+     div.content-header
+      div.header-inner
+       h2.js-timeline-title=roomName
+     div.stream-container
+      div.stream.home-stream
+       ol#stream-items.stream-items
