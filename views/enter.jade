@@ -2,7 +2,7 @@
  script(type='text/javascript')
   function enterRoom(roomName){
    location.href='/join/'+roomName;
-  };
+  }; 
  
  h2 채팅방 목록
  p #{nickName}님 환영합니다.
@@ -11,10 +11,11 @@
     label(for='roomname') 방제
     input(type='text', id='roomname', name='roomname')
     input(type='submit', value='방만들기')
- ul 
-  each room in roomList
-   li= room
-    input(type='button', value='입장', onclick='enterRoom(\'' + room + '\')');
+ - if(roomList && roomList.length)
+  ul
+   each room in roomList
+    li= room.name
+     input(type='button', value='입장', onclick='enterRoom(\'' + room.name + '\')');
 - else
  - if(nickName == '')
   script(type='text/javascript')
