@@ -1,9 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  h2  채팅방
+  h2  로그인
   form(action='/enter', method='POST')#form_enter
    label(for='nickName') 닉네임을 입력하세요.
    input(type='text', id='nickName', name='nickName')

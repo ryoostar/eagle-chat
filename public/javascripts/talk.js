@@ -72,30 +72,33 @@
 }());
 
 $(document).ready(function() {
-    var room = io.connect('/room');
+    var group = io.connect('/group');
 
-    // $("#form_enter").submit();
-
-    room.on('connect', function() {
-	room.emit('join', {
-	    roomName : $('#roomName').val(),
+    group.on('connect', function() {
+	group.emit('join', {
+	    groupName : $('#groupName').val(),
 	    nickName : $('#myName').val()
 	});
     });
 
-    room.on('joined', function(data) {
+    group.on('joined', function(data) {
 	if (data.isSuccess) {
-	    data.msg = data.nickName + ' 님이 입장하셨습니다.';
+	    if (data.isNewMember == true) {
+		var attendstr = "<div class='js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable'>";
+		attendstr += "<div class='content'>";
+		attendstr += "<img class='avatar js-action-profile-avatar' src='../images/lava.jpg'/>";
+		attendstr += "<b class='fullname'>" + data.nickName + "</b>";
+		attendstr += "</div></div>";
+		$("#attendants").append($(attendstr));
+		data.msg = data.nickName + " 님이 그룹에 새롭게 참여하였습니다.";
+	    } else {
+		data.msg = data.nickName + " 님이 방문했습니다.";
+	    }
 	    Chat.showMessage(data);
-
-	    var attendant = $("<div class='js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable'></div>");
-	    var content = $("<div class='content'>");
-	    var img = $("<img class='avatar js-action-profile-avatar'/>").attr("src", "../images/lava.jpg");
-	    $("#attendants").append(attendant.append(content.append(img).append("<b class='fullname'>" + data.nickName + "</b>")));
 	}
     });
 
-    room.on('message', function(data) {
+    group.on('message', function(data) {
 	Chat.showMessage(data);
     });
 
@@ -114,15 +117,15 @@ $(document).ready(function() {
 	var msg = messageBox.text();
 	if ($.trim(msg) !== '') {
 	    var nickName = $('#myName').val();
-	    var roomName = $('#roomName').val();
+	    var groupName = $('#groupName').val();
 	    Chat.showMessage({
 		nickName : nickName,
 		msg : msg
 	    });
-	    room.json.send({
+	    group.json.send({
 		nickName : nickName,
 		msg : msg,
-		roomName : roomName
+		groupName : groupName
 	    });
 	    messageBox.text('');
 	}
