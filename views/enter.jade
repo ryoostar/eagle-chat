@@ -1,4 +1,4 @@
-- if(isSuccess)
+- if(isSuccess != false)
  script(type='text/javascript')
   function enterRoom(groupName){
    location.href='/join/'+groupName;
@@ -7,7 +7,7 @@
  h2 채팅방 목록
  p #{nickName}님 환영합니다.
  p 원하는 채팅방이 없으면 채팅방을 만드세요.
-   form(action='/makeroom', method='POST')
+   form(action='/makeGroup', method='POST')
     label(for='groupName') 방제
     input(type='text', id='groupName', name='groupName')
     input(type='submit', value='그룹 만들기')

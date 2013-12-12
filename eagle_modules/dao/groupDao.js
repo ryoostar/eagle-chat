@@ -3,7 +3,7 @@ module.exports = {
 	var mongojs = require('mongojs');
 	return mongojs('172.16.2.4:27017/eagleagle', [ 'user', 'sns', 'group' ]);
     },
-    hasRoom : function(groupName, callback) {
+    hasGroup : function(groupName, callback) {
 	console.log(groupName + '그룹이 DB에 있는지 확인합니다.');
 	if (!groupName)
 	    callback(false);

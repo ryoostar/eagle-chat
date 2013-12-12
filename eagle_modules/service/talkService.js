@@ -29,11 +29,14 @@ module.exports = function(server) {
 			    });
 			}
 			socket.join(joinedGroup);
-			socket.emit('joined', {
-			    isSuccess : true,
-			    nickName : data.nickName,
-			    isNewMember : !hasAlready
-			});
+			TalkDao.getGroupTalks(joinedGroup,function(talks){
+			    socket.emit('joined', {
+				isSuccess : true,
+				nickName : data.nickName,
+				isNewMember : !hasAlready,
+				talks : talks
+			    });
+			})
 			socket.broadcast.to(joinedGroup).emit('joined', {
 			    isSuccess : true,
 			    nickName : data.nickName,

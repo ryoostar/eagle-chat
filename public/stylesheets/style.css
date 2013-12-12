@@ -62,7 +62,6 @@ div.header {
 }
 
 .stream-item-header .avatar,.permalink-header .avatar {
-	position: absoulte;
 	top: 12px;
 	left: 12px;
 	float: left;
@@ -119,17 +118,16 @@ ol {
 	-webkit-padding-start: 40px;
 }
 
-.stream-items {
-	position: relative;
-	margin-left: 0;
-	list-style: none;
-}
-
 .stream-items .preexpanded {
 	margin-bottom: 8px
 }
 
-.stream,.stream-items {
+.stream-items{
+	list-style: none;
+	padding: 5px 5px 5px 5px;
+}
+
+.stream{
 	position: relative;
 	margin-left: 0;
 	list-style: none
@@ -165,9 +163,18 @@ li.stream-item {
 	border-left: 1px solid rgba(0, 0, 0, .1);
 	border-right: 1px solid #e8e8e8;
 	border-right: 1px solid rgba(0, 0, 0, .1);
+	border-top: 1px solid #e8e8e8;
+	border-top: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 1px solid #e8e8e8;
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	border-radius: 10px;
 	-webkit-background-clip: padding-box;
 	-moz-background-clip: padding;
 	background-clip: padding-box;
+}
+
+.stream-item-header .account-group {
+	color: #999;
 }
 
 .tweet {
@@ -424,8 +431,7 @@ input,textarea,div[contenteditable="true"],select {
 	margin-right: 20px;
 }
 
-.account-summary .avatar {
-	position: absolute;
+.account-summary{
 	top: 0;
 	left: 0;
 }
@@ -460,4 +466,10 @@ input,textarea,div[contenteditable="true"],select {
 	margin-top: 5px;
 	color: #999;
 	font-size: 11px
+}
+.center {
+ text-align:center;
+ vertical-align:middle;
+ width:100%;
+ height:100%;
 }

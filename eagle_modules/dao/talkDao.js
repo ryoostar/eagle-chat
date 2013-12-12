@@ -5,16 +5,23 @@ module.exports = {
     },
     insertTalk : function(data, callback) {
 	var date = new Date();
-	this.db().sns.insert({
-	    group : data.roomName,
-	    message : data.msg,
-	    user : data.nickName,
-	    date : date.toJSON()
-	}, function(error) {
+	data.date = date.toJSON();
+	
+	this.db().sns.insert(data, function(error) {
 	    if (error)
 		console.log("insertTalk Error Message : " + error);
 
 	    callback();
+	});
+    },
+    getGroupTalks : function(group, callback) {
+	this.db().sns.find({
+	    groupName : group
+	}, function(error, docs) {
+	    if (error)
+		console.log("getGroupTalks Error Message : " + error);
+	    
+	    callback(docs);
 	});
     }
 }

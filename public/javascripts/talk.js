@@ -17,7 +17,8 @@
 		    Noti.notifications.shift().close();
 		}
 
-		var notification = window.webkitNotifications.createNotification(image, title, content);
+		var notification = window.webkitNotifications.createNotification(image, title,
+			content);
 		Noti.notifications.push(notification);
 		notification.show();
 	    }
@@ -51,22 +52,36 @@
 	}
 
     };
-    window.Chat = {
-	showMessage : function(data) {
+    window.Talk = {
+	showMessage : function(talk) {
+	    this.addTalk(talk);
+	    Noti.plain_text_notification("../images/lava.jpg", talk.userNickName + "(Eagle Talk)",
+		    talk.message);
+	},
+	addTalk : function(talk) {
 	    var ol = $('#stream-items');
-
 	    var content = $("<div class='content'>");
 	    var stream = $("<div class='stream-item-header'>");
 	    var img = $("<img class='avatar js-action-profile-avatar'/>").attr("src", "../images/lava.jpg");
-	    var text = $("<p class='js-tweet-text'>" + data.msg + "</p>");
+	    var message = $("<p class='js-tweet-text'>" + talk.message + "</p>");
+	    var nickName = $("<strong class='fullname js-action-profile-name show-popup-with-id'>"
+		    + talk.userNickName + "</strong>");
+	    $(stream).append(img).append(message);
+	    var talkDate = new Date(talk.date);
+	    var joinedDateStr = talkDate.getFullYear()+"-"+talkDate.getMonth()+"-"+talkDate.getDate()+" "+talkDate.getHours()+":"+talkDate.getMinutes()+":"+talkDate.getSeconds();
+	    content.append(stream).append($("<p>"+joinedDateStr+"/"+"</p>"));
 
-	    stream.append(img).append("<strong class='fullname js-action-profile-name show-popup-with-id>" + data.nickName + "</strong>");
-	    content.append(stream).append(text);
-
-	    var li = $("<li class='js-stream-item stream-item'></li>");
+	    var li = $("<li class='stream-item'></li>");
 	    li.append(content)
-	    $(ol).append(li);
-	    Noti.plain_text_notification("../images/lava.jpg", data.nickName + "(Eagle Chat)", data.msg);
+	    $(ol).prepend(li);
+	},
+	addAttendant : function(attentant) {
+	    var attendstr = "<div class='js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable'>";
+	    attendstr += "<div class='content'>";
+	    attendstr += "<img class='avatar js-action-profile-avatar' src='../images/lava.jpg'/>";
+	    attendstr += "<b class='fullname'>" + attentant.nickName + "</b>";
+	    attendstr += "</div></div>";
+	    $("#attendants").append($(attendstr));
 	}
     };
 }());
@@ -83,23 +98,27 @@ $(document).ready(function() {
 
     group.on('joined', function(data) {
 	if (data.isSuccess) {
-	    if (data.isNewMember == true) {
-		var attendstr = "<div class='js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable'>";
-		attendstr += "<div class='content'>";
-		attendstr += "<img class='avatar js-action-profile-avatar' src='../images/lava.jpg'/>";
-		attendstr += "<b class='fullname'>" + data.nickName + "</b>";
-		attendstr += "</div></div>";
-		$("#attendants").append($(attendstr));
-		data.msg = data.nickName + " 님이 그룹에 새롭게 참여하였습니다.";
-	    } else {
-		data.msg = data.nickName + " 님이 방문했습니다.";
+	    var talks = data.talks;
+	    if (talks) {
+		for ( var i = 0; i < talks.length; i++) {
+		    Talk.addTalk(talks[i]);
+		}
 	    }
-	    Chat.showMessage(data);
+	    var talk = new TalkModel();
+	    if (data.isNewMember == true) {
+		Talk.addAttendant(data);
+		talk.message = data.nickName + " 님이 그룹에 새롭게 참여하였습니다.";
+	    } else {
+		talk.message = data.nickName + " 님이 방문했습니다.";
+	    }
+	    talk.userNickName = data.nickName;
+	    talk.date = new Date().toJSON();
+	    Talk.showMessage(talk);
 	}
     });
 
     group.on('message', function(data) {
-	Chat.showMessage(data);
+	Talk.showMessage(data);
     });
 
     // Notification available check
@@ -113,21 +132,16 @@ $(document).ready(function() {
     // send message
     $('#form_room').submit(function(e) {
 	e.preventDefault();
-	var messageBox = $('#message');
-	var msg = messageBox.text();
+	var msg = $('#message').text();
 	if ($.trim(msg) !== '') {
-	    var nickName = $('#myName').val();
-	    var groupName = $('#groupName').val();
-	    Chat.showMessage({
-		nickName : nickName,
-		msg : msg
-	    });
-	    group.json.send({
-		nickName : nickName,
-		msg : msg,
-		groupName : groupName
-	    });
-	    messageBox.text('');
+	    var talk = new TalkModel();
+	    talk.userNickName = $('#myName').val();
+	    talk.groupName = $('#groupName').val();
+	    talk.message = msg;
+
+	    Talk.showMessage(talk);
+	    group.json.send(talk);
+	    $('#message').text('');
 	}
     });
 });
