@@ -3,6 +3,30 @@ extends layout
 block content
  div.center
   form(action='/enter', method='POST')#form_enter
-   label(for='nickName') 닉네임을 입력하세요.
-   input(type='text', id='nickName', name='nickName')
-   button(type='submit') 입장
+   div
+    label(for='nickName') 닉네임을 입력하세요.
+    input(type='text', id='nickName', name='nickName')
+   div.char_box
+    input(type='radio',name='character',value='blue').char_radio
+    img(src='/images/blue.png').character
+    input(type='radio',name='character',value='black').char_radio
+    img(src='/images/black.png').character
+    input(type='radio',name='character',value='brown').char_radio
+    img(src='/images/brown.png').character
+    input(type='radio',name='character',value='frersian').char_radio
+    img(src='/images/frersian.png').character
+    input(type='radio',name='character',value='maroon').char_radio
+    img(src='/images/maroon.png').character
+    input(type='radio',name='character',value='pink').char_radio
+    img(src='/images/pink.png').character
+    input(type='radio',name='character',value='prizm').char_radio
+    img(src='/images/prizm.png').character
+    input(type='radio',name='character',value='rainbow').char_radio
+    img(src='/images/rainbow.png').character
+    input(type='radio',name='character',value='red').char_radio
+    img(src='/images/red.png').character
+    input(type='radio',name='character',value='violet').char_radio
+    img(src='/images/violet.png').character
+    input(type='radio',name='character',value='yellow',checked='true').char_radio
+    img(src='/images/yellow.png').character
+   button(type='submit') GoGoGo~!

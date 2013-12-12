@@ -14,13 +14,14 @@ block content
        a.account-summary.account-summary-small.js-nav
         div
          div.account-group.js-mini.current-user
-          img.avatar.size32(src='../images/lava.jpg')
+          img.avatar.size32(src='/images/#{character}.png')
           b.fullname=nickName
           small.metadata 라바라바라
       div.home-tweet-box.tweet-box.component.tweet-user
        form#form_room.tweet-form
         input#groupName(type='hidden',value=groupName)
         input#myName(type='hidden',value=nickName)
+        input#character(type='hidden',value=character)
         div.tweet-content        
          div#message.tweet-box.rich-editor(contenteditable='true', spellcheck='true', role='textbox', aria-multiline='true', dir='ltr')
          div.toolbar.js-toolbar
@@ -32,10 +33,10 @@ block content
         h3 참가자
        div#attendants.js-recommended-followers.dashboard-user-recommendations.flex-module-inner
        each attendant in users
-        div.js-account-summary.account-summary.js-actionable-user.promoted-account.js-profile-popup-actionable
+        div
          div.content
-          img.avatar.js-action-profile-avatar(src='../images/lava.jpg')
-          b.fullname=attendant
+          img.avatar.js-action-profile-avatar(src='/images/#{attendant.character}.png')
+          b.fullname=attendant.nickName
     div#timeline.content-main.js-timeline-from-cache
      div.content-header
       div.header-inner

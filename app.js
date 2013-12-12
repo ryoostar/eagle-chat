@@ -36,11 +36,11 @@ app.get('/', routes.index);
  */
 app.post('/enter', function(req, res) {
     var isSuccess = false, nickName = req.body.nickName;
-
+    var character = req.body.character;
     if (nickName && nickName.trim() !== '') {
 	UserDao.hasUser(nickName, function(hasUser) {
 	    if (hasUser === false) {
-		UserDao.addUser(nickName);
+		UserDao.addUser(nickName,character);
 	    }
 	    req.session.nickName = nickName;
 	    isSuccess = true;
@@ -49,7 +49,8 @@ app.post('/enter', function(req, res) {
 		res.render('enter', {
 		    isSuccess : isSuccess,
 		    nickName : nickName,
-		    groupList : groupList
+		    groupList : groupList,
+		    character : character
 		});
 	    });
 	    
@@ -69,24 +70,28 @@ app.get('/enter', function(req, res) {
  */
 app.post('/makeGroup', function(req, res) {
     var groupName = req.body.groupName;
+    var character = req.body.character;
     if (groupName && groupName.trim() !== '') {
 	GroupDao.hasGroup(groupName, function(hasGroup) {
 	    var isSuccess = false;
 	    if (hasGroup == false) {
-		GroupDao.addRoom(groupName);
 		isSuccess = true;
+		GroupDao.addRoom(groupName,function(){
+		    res.render('makeGroup', {
+			isSuccess : isSuccess,
+			groupName : groupName,
+			character : character,
+		    });    
+		});
 	    } else {
 		isSuccess = false;
 	    }
-	    res.render('makeGroup', {
-		isSuccess : isSuccess,
-		groupName : groupName
-	    });
 	});
     } else {
 	res.render('makeGroup', {
 	    isSuccess : false,
-	    groupName : groupName
+	    groupName : groupName,
+	    character : character
 	});
     }
 });
@@ -94,8 +99,9 @@ app.post('/makeGroup', function(req, res) {
 /**
  * 그룹선택하여 참여하기
  */
-app.get('/join/:id', function(req, res) {
-    var isSuccess = false, groupName = req.params.id;
+app.get('/join/:id/:character', function(req, res) {
+    var isSuccess = false, groupName = req.params.id,character = req.params.character;
+    console.log(req.params);
     GroupDao.hasGroup(groupName, function(hasGroup) {
 	if (hasGroup == true) {
 	    UserDao.getUsers(groupName, function(attendants) {
@@ -103,7 +109,8 @@ app.get('/join/:id', function(req, res) {
 		    isSuccess : true,
 		    groupName : groupName,
 		    nickName : req.session.nickName,
-		    users : attendants
+		    users : attendants,
+		    character : character
 		});
 	    });
 	}

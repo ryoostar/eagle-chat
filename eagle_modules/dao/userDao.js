@@ -21,10 +21,11 @@ module.exports = {
 	    }
 	});
     },
-    addUser : function(nickName) {
-	console.log(nickName + ' 사용자를 DB에 저장합니다.');
+    addUser : function(nickName,character) {
+	console.log(nickName + '('+character+') 사용자를 DB에 저장합니다.');
 	this.db().user.insert({
-	    nickname : nickName
+	    nickname : nickName,
+	    character : character
 	}, function(error) {
 	    if (error)
 		console.log('사용자 insert error---------------------' + error);
@@ -40,5 +41,12 @@ module.exports = {
 	    console.log('참가자 수 : ' + doc.attendants.length);
 	    callback(doc.attendants);
 	});
+    },
+    getUser : function(nickName, callback){
+	console.log(nickName+'사용자의 정보를 DB 조회합니다.');
+	this.db().user.findOne({nickName:nickName}, function(error,doc){
+	    console.log("조회된 사용자:"+doc.nickName+"("+doc.character+")");
+	    callback(doc);
+	})
     }
 }

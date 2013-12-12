@@ -18,11 +18,15 @@ module.exports = function(server) {
 		    if (group) {
 			var attendants = group.attendants, hasAlready = false;
 			for ( var i = 0; i < attendants.length; i++) {
-			    if (attendants[i] == data.nickName)
+			    if (attendants[i].nickName == data.nickName)
 				hasAlready = true;
 			}
 			if (!hasAlready) {
-			    group.attendants.push(data.nickName);
+			    var user = {
+				    nickName : data.nickName,
+				    character : data.character
+			    }
+			    group.attendants.push(user);
 
 			    GroupDao.updateGroupAttendants(group, function() {
 
@@ -34,12 +38,14 @@ module.exports = function(server) {
 				isSuccess : true,
 				nickName : data.nickName,
 				isNewMember : !hasAlready,
+				character : data.character,
 				talks : talks
 			    });
 			})
 			socket.broadcast.to(joinedGroup).emit('joined', {
 			    isSuccess : true,
 			    nickName : data.nickName,
+			    character : data.character,
 			    isNewMember : !hasAlready
 			});
 		    }

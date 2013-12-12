@@ -1,3 +1,4 @@
+var character = ['black','blue','brown','frersian','maroon','pink','prizm','rainbow','red','violet','yellow'];
 (function() {
     window.Noti = {
 	notifications : [],
@@ -55,30 +56,34 @@
     window.Talk = {
 	showMessage : function(talk) {
 	    this.addTalk(talk);
-	    Noti.plain_text_notification("../images/lava.jpg", talk.userNickName + "(Eagle Talk)",
+	    Noti.plain_text_notification("/images/"+talk.character+".png", talk.userNickName + "(Eagle Talk)",
 		    talk.message);
 	},
 	addTalk : function(talk) {
 	    var ol = $('#stream-items');
 	    var content = $("<div class='content'>");
 	    var stream = $("<div class='stream-item-header'>");
-	    var img = $("<img class='avatar js-action-profile-avatar'/>").attr("src", "../images/lava.jpg");
+	    var img = $("<img class='avatar js-action-profile-avatar'/>").attr("src", "/images/"+talk.character+".png");
 	    var message = $("<p class='js-tweet-text'>" + talk.message + "</p>");
 	    var nickName = $("<strong class='fullname js-action-profile-name show-popup-with-id'>"
 		    + talk.userNickName + "</strong>");
 	    $(stream).append(img).append(message);
 	    var talkDate = new Date(talk.date);
+	    if(talk.date == ""){
+		talkDate = new Date();
+	    }
 	    var joinedDateStr = talkDate.getFullYear()+"-"+talkDate.getMonth()+"-"+talkDate.getDate()+" "+talkDate.getHours()+":"+talkDate.getMinutes()+":"+talkDate.getSeconds();
-	    content.append(stream).append($("<p>"+joinedDateStr+"/"+"</p>"));
+	    content.append(stream).append(nickName);
+	    content.append(stream).append($("<p>"+joinedDateStr+"</p>"));
 
 	    var li = $("<li class='stream-item'></li>");
 	    li.append(content)
 	    $(ol).prepend(li);
 	},
 	addAttendant : function(attentant) {
-	    var attendstr = "<div class='js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable'>";
+	    var attendstr = "<div>";
 	    attendstr += "<div class='content'>";
-	    attendstr += "<img class='avatar js-action-profile-avatar' src='../images/lava.jpg'/>";
+	    attendstr += "<img class='avatar js-action-profile-avatar' src='/images/"+attentant.character+".png'/>";
 	    attendstr += "<b class='fullname'>" + attentant.nickName + "</b>";
 	    attendstr += "</div></div>";
 	    $("#attendants").append($(attendstr));
@@ -92,7 +97,8 @@ $(document).ready(function() {
     group.on('connect', function() {
 	group.emit('join', {
 	    groupName : $('#groupName').val(),
-	    nickName : $('#myName').val()
+	    nickName : $('#myName').val(),
+	    character : $('#character').val()
 	});
     });
 
@@ -100,7 +106,7 @@ $(document).ready(function() {
 	if (data.isSuccess) {
 	    var talks = data.talks;
 	    if (talks) {
-		for ( var i = 0; i < talks.length; i++) {
+		for ( var i = 0; i < talks.length; i++) {		    
 		    Talk.addTalk(talks[i]);
 		}
 	    }
@@ -113,6 +119,7 @@ $(document).ready(function() {
 	    }
 	    talk.userNickName = data.nickName;
 	    talk.date = new Date().toJSON();
+	    talk.character = data.character;
 	    Talk.showMessage(talk);
 	}
     });
@@ -137,6 +144,7 @@ $(document).ready(function() {
 	    var talk = new TalkModel();
 	    talk.userNickName = $('#myName').val();
 	    talk.groupName = $('#groupName').val();
+	    talk.character = $('#character').val();
 	    talk.message = msg;
 
 	    Talk.showMessage(talk);

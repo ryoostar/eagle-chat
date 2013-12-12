@@ -57,7 +57,7 @@ module.exports = {
 	    callback();
 	});
     },
-    addRoom : function(groupName) {
+    addRoom : function(groupName,callback) {
 	console.log(groupName + '그룹을 DB에 저장합니다.');
 	this.db().group.insert({
 	    name : groupName,
@@ -65,6 +65,8 @@ module.exports = {
 	}, function(error) {
 	    if (error)
 		console.log('group insert error---------------------' + error);
+	    else
+		callback();
 	});
     },
     getRoomList : function(callback) {

@@ -1,15 +1,18 @@
 - if(isSuccess != false)
  script(type='text/javascript')
   function enterRoom(groupName){
-   location.href='/join/'+groupName;
+   location.href='/join/'+groupName+'/#{character}';
   }; 
  
  h2 채팅방 목록
+ p
+  img(src='/images/#{character}.png').character
  p #{nickName}님 환영합니다.
  p 원하는 채팅방이 없으면 채팅방을 만드세요.
    form(action='/makeGroup', method='POST')
     label(for='groupName') 방제
     input(type='text', id='groupName', name='groupName')
+    input(type='hidden', name='character',value='#{character}')
     input(type='submit', value='그룹 만들기')
  - if(groupList && groupList.length)
   ul

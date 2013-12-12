@@ -473,3 +473,17 @@ input,textarea,div[contenteditable="true"],select {
  width:100%;
  height:100%;
 }
+
+img.character{
+	width: 100px;
+	height: 100px;
+}
+
+input.char_radio {
+	width:20px;
+}
+
+div.char_box{
+	text-align: center;
+	width : 730px;
+}
