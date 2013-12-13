@@ -10,19 +10,18 @@ var server = http.createServer(app), path = require('path');
 app.configure(function() {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
+    app.set('view engine', 'ejs');
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    // 주의 !!! 쿠키 및 세션은 app.router설정 전에 할것 .
     app.use(express.cookieParser());
     app.use(express.session({
 	secret : 'secret key'
     }));
     app.use(app.router);
 
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public')));  
 });
 
 app.configure('development', function() {
@@ -68,7 +67,7 @@ app.get('/enter', function(req, res) {
 /**
  * 그룹만들기
  */
-app.post('/makeGroup', function(req, res) {
+app.post('/makegroup', function(req, res) {
     var groupName = req.body.groupName;
     var character = req.body.character;
     if (groupName && groupName.trim() !== '') {

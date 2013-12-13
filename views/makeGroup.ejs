@@ -1,0 +1,12 @@
+<script>
+<% if(isSuccess){ %>
+  alert('그룹이 만들어졌습니다.')
+  location.href = '/join/<%= groupName %>/<%= character %>';
+<% }else if(groupName === ''){ %> 
+  alert('그룹을 만들지 못했습니다.');
+  location.href = '/enter';
+<% }else{ %> 
+ alert('이미 존재하는 그룹입니다.');
+ location.href = '/enter';
+<% } %>
+</script>

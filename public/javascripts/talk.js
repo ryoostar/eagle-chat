@@ -1,4 +1,3 @@
-var character = ['black','blue','brown','frersian','maroon','pink','prizm','rainbow','red','violet','yellow'];
 (function() {
     window.Noti = {
 	notifications : [],

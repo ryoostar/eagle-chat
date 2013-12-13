@@ -395,7 +395,7 @@ input,textarea,div[contenteditable="true"] {
 	transition: .2s linear background;
 }
 
-input,textarea,div[contenteditable="true"],select {
+input[type=text],textarea,div[contenteditable="true"],select {
 	display: inline-block;
 	width: 210px;
 	padding: 4px;
@@ -482,8 +482,14 @@ img.character{
 input.char_radio {
 	width:20px;
 }
+input[type=submit]{
+	padding:4px;
+}
 
 div.char_box{
 	text-align: center;
 	width : 730px;
+}
+table{
+	border:1px solid;
 }

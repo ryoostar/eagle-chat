@@ -14,14 +14,24 @@ module.exports = {
 	    callback();
 	});
     },
-    getGroupTalks : function(group, callback) {
+    getGroupTalks2 : function(group, callback) {
 	this.db().sns.find({
 	    groupName : group
-	}, function(error, docs) {
+	},function(error, docs) {
 	    if (error)
 		console.log("getGroupTalks Error Message : " + error);
 	    
 	    callback(docs);
+	});
+    },
+    getGroupTalks : function(group, callback) {
+    	this.db().sns.find({
+		groupName : group
+	}).sort({$natural:-1}).limit(10).toArray(function(err,doc){
+		if(err)	console.log("getGroupTalks Error Message : " + err);
+		console.log("docs " + doc);
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		callback(doc);
 	});
     }
 }

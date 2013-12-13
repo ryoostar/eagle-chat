@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>이글이글</title>
+        <link rel='stylesheet' href='/stylesheets/style.css'/>
+        <script type='text/javascript' src ='/javascripts/jquery-1.8.1.min.js'></script>
+        <script type='text/javascript' src ='/socket.io/socket.io.js'></script>
+        <script type='text/javascript' src ='/javascripts/talk.js'></script>
+        <script type='text/javascript' src ='/javascripts/model/Models.js'></script>
+    </head>
+    <body>
+    <div>
+    	<div><h2>HONE 이글이글 Ver.alpha</h2></div>
+
+<% if(!isSuccess) { %>
+	<script>
+		alert('방에 입장할 수 없습니다 ');
+		location.href = '/enter';
+	</script>  
+ <% } %>
+
+	<div id='page-container' class='wrapper wrapper-home white'>
+		<div class='dashboard'>
+			<div class='module mini-profile'>
+				<div class='flex-module profile-summary js-profile-summary'>
+					<a class='account-summary account-summary-small js-nav'>
+						<div>
+				     		<div class='account-group js-mini current-user'>
+					      		<img class='avatar' src='/images/<%= character %>.png' style='width:32px'/>
+					      		<b class='fullname'><%= nickName %></b><small class='metadata'>라바라바라</small>
+					      	</div>
+						</div>
+				    </a>
+				</div>
+				<div class='home-tweet-box tweet-box component tweet-user'>
+					<form id='form_room' class='tweet-form'>
+				    	<input id='groupName' type='hidden' value='<%= groupName %>'/>
+				        <input id='myName' type='hidden' value='<%= nickName %>'/>
+				        <input id='character' type='hidden' value='<%= character %>'/>
+				        <div class='tweet-content'>        
+				        	<div id='message' class='tweet-box rich-editor' contenteditable='true' spellcheck='true' role='textbox' aria-multiline='true' dir='ltr'></div>
+				        	<div class="toolbar js-toolbar">
+				        		<div class="tweet-button">
+				        			<button id="btn_send" type="button" class="btn primary-btn tweet-action">Egle</button>
+				        		</div>
+				        	</div>
+				        </div>
+					</form>
+				</div>
+			</div>
+			<div class="module wtf-module js-wtf-module has-content">
+				<div class="flex-module">
+					<div class="flex-module-header">
+						<h3>참가자</h3>
+					</div>
+					<div id="attendants" class="js-recommended-followers dashboard-user-recommendations flex-module-inner"></div>
+				<% for(var i=0;i<users.length;i++){ %>
+					<div class="content">
+						<img src="/images/<%= users[i].character %>.png" class="avatar js-action-profile-avatar">
+						<b class="fullname"><%= users[i].nickName %></b>
+					</div>
+				<% } %>				
+				</div>
+			</div>
+		</div>
+	    <div id='timeline' class='content-main js-timeline-from-cache'>
+	    	<div class="content-header">
+	    		<div class="header-inner">
+	    			<h2 class="js-timeline-title"><%= groupName %></h2>
+	    		</div>
+	    	</div>
+	    	<div class='stream-container'>
+	      		<div class='stream home-stream'>
+	       			<ol id='stream-items' class='stream-items'></ol>
+	       		</div>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
