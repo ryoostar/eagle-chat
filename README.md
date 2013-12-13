@@ -1,4 +1,9 @@
 eagle-chat
 ==========
 
-Eagle Chat use Nodejs
+Eagleagle SNS Project
+
+Node.js
+-Express
+-mongojs
+-EJS
