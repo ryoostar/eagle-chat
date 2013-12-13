@@ -134,6 +134,10 @@ $(document).ready(function() {
 	Noti.request_permission();
 	$('#form_room').submit();
     });
+    
+    $('#btn_grouplist').click(function() {
+	location.href = '/enter';
+    });
 
     // send message
     $('#form_room').submit(function(e) {

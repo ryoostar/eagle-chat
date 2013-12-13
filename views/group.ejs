@@ -10,7 +10,7 @@
     </head>
     <body>
     <div>
-    	<div><h2>HONE 이글이글 Ver.alpha</h2></div>
+    	<div class='top-banner'><h2>HONE 이글이글 Ver.alpha</h2><span><a href='/logout'>로그아웃</a></span></div>
 
 <% if(!isSuccess) { %>
 	<script>
@@ -41,7 +41,7 @@
 				        	<div id='message' class='tweet-box rich-editor' contenteditable='true' spellcheck='true' role='textbox' aria-multiline='true' dir='ltr'></div>
 				        	<div class="toolbar js-toolbar">
 				        		<div class="tweet-button">
-				        			<button id="btn_send" type="button" class="btn primary-btn tweet-action">Egle</button>
+				        			<button id="btn_send" type="button" class="btn primary-btn">Egle</button>
 				        		</div>
 				        	</div>
 				        </div>
@@ -66,7 +66,8 @@
 	    <div id='timeline' class='content-main js-timeline-from-cache'>
 	    	<div class="content-header">
 	    		<div class="header-inner">
-	    			<h2 class="js-timeline-title"><%= groupName %></h2>
+	    			<span style='float:left;width:400px;'><h2 class="js-timeline-title"><%= groupName %></h2></span>
+	    			<span><button id="btn_grouplist" type="button" class="btn out-btn">Group List</button></span>
 	    		</div>
 	    	</div>
 	    	<div class='stream-container'>

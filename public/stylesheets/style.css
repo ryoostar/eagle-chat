@@ -310,6 +310,46 @@ li.stream-item {
 	border-color: #096eb3;
 }
 
+.out-btn:hover,.out-btn:focus {
+	color: #fff;
+	background-color: #0271bf;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#2daddc),
+		to(#0271bf) );
+	background-image: -moz-linear-gradient(#2daddc, #0271bf);
+	background-image: -ms-linear-gradient(#2daddc, #0271bf);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2daddc),
+		color-stop(100%, #0271bf) );
+	background-image: -webkit-linear-gradient(#2daddc, #0271bf);
+	background-image: -o-linear-gradient(#2daddc, #0271bf);
+	background-image: linear-gradient(#2daddc, #0271bf);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2daddc',
+		endColorstr='#0271bf', GradientType=0 );
+	border-color: #096eb3;
+}
+
+.out-btn{
+	color: #fff;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
+	background-color: #019ad2;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#33bcef),
+		to(#019ad2) );
+	background-image: -moz-linear-gradient(#33bcef, #019ad2);
+	background-image: -ms-linear-gradient(#33bcef, #019ad2);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #33bcef),
+		color-stop(100%, #019ad2) );
+	background-image: -webkit-linear-gradient(#33bcef, #019ad2);
+	background-image: -o-linear-gradient(#33bcef, #019ad2);
+	background-image: linear-gradient(#33bcef, #019ad2);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bcef',
+		endColorstr='#019ad2', GradientType=0 );
+	border-color: #057ed0;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+
 .btn:hover,.photo-selector:not        (.disabled        ):hover .btn,.follow-combo.open .btn-user-actions,.user-dropdown.open
 	{
 	text-decoration: none;
@@ -492,4 +532,9 @@ div.char_box{
 }
 table{
 	border:1px solid;
+}
+
+div.top-banner{
+	background-color: #3E99D9;
+	padding:5px
 }
