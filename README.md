@@ -1,13 +1,11 @@
 eagle-chat
 ==========
+### Eagleagle SNS Project
 
-Eagleagle SNS Project
-
-Node.js
--Express
--mongojs
--EJS
-
+> #### Node.js
+>> + Express
+>> + mongojs
+>> + EJS
 
 MongoDB collection
 
