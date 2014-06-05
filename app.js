@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var express = require('express'), app = express(), http = require('http'), routes = require('./routes');
+var express = require('express'), app = express(), http = require('http'), routes = require('./routes'), assert = require('assert');
 var server = http.createServer(app), path = require('path');
 
 /**
@@ -21,7 +21,7 @@ app.configure(function() {
 	maxAge : 3600000
     }));
     app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));  
+    app.use(express.static(path.join(__dirname, 'public')));
 });
 
 app.configure('development', function() {

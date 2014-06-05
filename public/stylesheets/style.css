@@ -61,6 +61,10 @@ div.header {
 	background: #fff;
 }
 
+.content {
+	margin : 5px;
+}
+
 .stream-item-header .avatar,.permalink-header .avatar {
 	top: 12px;
 	left: 12px;

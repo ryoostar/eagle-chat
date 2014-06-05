@@ -27,10 +27,9 @@ module.exports = {
     getGroupTalks : function(group, callback) {
     	this.db().sns.find({
 		groupName : group
-	}).sort({$natural:-1}).limit(10).toArray(function(err,doc){
+	}).sort({date:1}).limit(10).toArray(function(err,doc){
 		if(err)	console.log("getGroupTalks Error Message : " + err);
-		console.log("docs " + doc);
-		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		console.log("===================Talk 갯수 : " + doc.length);		
 		callback(doc);
 	});
     }

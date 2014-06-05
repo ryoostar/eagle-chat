@@ -1,7 +1,8 @@
 module.exports = {
     db : function() {
 	var mongojs = require('mongojs');
-	return mongojs('172.16.2.4:27017/eagleagle', [ 'user', 'sns', 'group' ]);
+	var dbconnection = mongojs('172.16.2.4:27017/eagleagle', [ 'user', 'sns', 'group' ]); 
+	return dbconnection;
     },
     hasGroup : function(groupName, callback) {
 	console.log(groupName + '그룹이 DB에 있는지 확인합니다.');

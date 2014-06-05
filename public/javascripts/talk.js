@@ -64,7 +64,7 @@
 	    var stream = $("<div class='stream-item-header'>");
 	    var img = $("<img class='avatar js-action-profile-avatar'/>").attr("src", "/images/"+talk.character+".png");
 	    var message = $("<p class='js-tweet-text'>" + talk.message + "</p>");
-	    var nickName = $("<strong class='fullname js-action-profile-name show-popup-with-id'>"
+	    var nickName = $("<strong class='fullname'>"
 		    + talk.userNickName + "</strong>");
 	    $(stream).append(img).append(message);
 	    var talkDate = new Date(talk.date);

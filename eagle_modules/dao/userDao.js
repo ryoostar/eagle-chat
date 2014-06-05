@@ -1,3 +1,4 @@
+var assert = require('assert');
 module.exports = {
     db : function() {
 	var mongojs = require('mongojs');
@@ -18,6 +19,16 @@ module.exports = {
 		callback(true);
 	    } else {
 		callback(false);
+	    }
+	});
+    },
+    updateUser : function(nickName,character){
+	console.log(nickName + '('+character+') 사용자를 DB에 수정합니다.');
+	this.db().user.update({nickName:nickName}, {$set:{character:character}}, function(err, lastErrorObject) {		
+	    assert.ok(!err);
+	    if(lastErrorObject){
+		assert.equal(lastErrorObject.updatedExisting, true);
+		assert.equal(lastErrorObject.n, 1);
 	    }
 	});
     },

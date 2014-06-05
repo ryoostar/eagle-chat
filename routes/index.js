@@ -36,6 +36,8 @@ exports.enter = function(req, res) {
 	UserDao.hasUser(nickName, function(hasUser) {
 	    if (hasUser === false) {
 		UserDao.addUser(nickName, character);
+	    }else{
+		UserDao.updateUser(nickName, character);		
 	    }
 	    req.session.nickName = nickName;
 	    isSuccess = true;
@@ -90,19 +92,31 @@ exports.makegroup = function(req, res) {
 };
 
 exports.join = function(req, res) {
-    console.log('***********join');
+    console.log('***********Group에 들어갑니다.');
     console.log(req.params);
-    var isSuccess = false, groupName = req.params.id, character = req.params.character;
+    var isSuccess = false, groupName = req.params.id, character = req.params.character;    
     GroupDao.hasGroup(groupName, function(hasGroup) {
 	if (hasGroup == true) {
 	    UserDao.getUsers(groupName, function(attendants) {
-		res.render('group', {
-		    isSuccess : true,
-		    groupName : groupName,
-		    nickName : req.session.nickName,
-		    users : attendants,
-		    character : character
+		for(var i=0;i<attendants.length;i++){
+		    if(attendants[i].nickName == req.session.nickName){
+			attendants[i].character = character;
+		    }
+		};
+		var group = {
+			name : groupName,
+			attendants : attendants
+		};
+		GroupDao.updateGroupAttendants(group,function(){
+		    res.render('group', {
+			isSuccess : true,
+			groupName : groupName,
+			nickName : req.session.nickName,
+			users : attendants,
+			character : character
+		    });
 		});
+		
 	    });
 	}
     });
