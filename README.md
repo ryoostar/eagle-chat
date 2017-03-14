@@ -2,6 +2,8 @@ eagle-chat
 ==========
 ### Eagleagle SNS Project
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ryoostar/eagle-chat.svg)](https://greenkeeper.io/)
+
 #### Node.js
 > + Express
 > + mongojs
